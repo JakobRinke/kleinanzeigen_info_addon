@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "Kleinanzeigen Info",
+  "version": "1.0",
+
+  "description": "Zeigt die Preise der Produkte auf Kleinanzeigen neu auf Ebay und Idealo an",
+
+  "icons": {
+    "512": "icons/ico-512.png"
+  },
+
+  "permissions": ["activeTab", "<all_urls>"],
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.kleinanzeigen.de/*"],
+      "js": ["idealo_connect.js", "ebay_connect.js", "kleinanzeigen_info.js"]
+    }
+  ],
+  "background": {
+    "scripts": [
+       "idealo_connect.js", "ebay_connect.js", "mkleinanzeigen_infosg.js"
+    ]
+  }
+}
+
