@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Kleinanzeigen Info",
   "version": "1.0",
-  "homepage_url": "https://github.com/mdn/webextensions-examples/tree/main/beastify",
+  "homepage_url": "https://github.com/JakobRinke/kleinanzeigen_info_addon",
 
   "description": "Zeigt die Preise der Produkte auf Kleinanzeigen neu auf Ebay und Idealo an",
 
@@ -20,9 +20,9 @@
   ],
   "background": {
     "scripts": [
-       "idealo_connect.js", "ebay_connect.js", "mkleinanzeigen_infosg.js"
+       "idealo_connect.js", "ebay_connect.js", "kleinanzeigen_info.js"
     ]
-  },
+  }
   
 }
 

@@ -16,27 +16,53 @@ async function processItem(item) {
     } catch (e) {
         return;
     }
+    fill_in(title, shipping_container);
+}   
+
+
+async function fill_in(title, shipping_container) {
     const it = await get_ebay_item(title);
-    const price_prefab = `
-        <a class="aditem-main--middle--price-shipping--price" href="{link}" target="_blank" style="margin-left: 10px;">
-            EBAY: {price} €             
-         </a>
-    `
-    shipping_container.innerHTML = shipping_container.innerHTML + price_prefab.replace("{price}", it.price).replace("{link}", it.link);
+    if (it) {
+        const sanitizedPrice = DOMPurify.sanitize(it.price);
+        const sanitizedLink = DOMPurify.sanitize(it.link);
+        const ebayLink = document.createElement('a');
+        ebayLink.className = "aditem-main--middle--price-shipping--price";
+        ebayLink.href = sanitizedLink;
+        ebayLink.target = "_blank";
+        ebayLink.style.marginLeft = "10px";
+        ebayLink.textContent = `EBAY: ${sanitizedPrice} €`;
+        shipping_container.appendChild(ebayLink);
+    }
 
     const ide = await get_idealo_item(title);
     if (ide) {
-        const idealo_prefab = `
-            <a class="aditem-main--middle--price-shipping--price" href="{link}" target="_blank" style="margin-left: 10px;">
-                IDEALO: {price} €             
-             </a>
-        `
-        shipping_container.innerHTML = shipping_container.innerHTML + idealo_prefab.replace("{price}", ide.price).replace("{link}", ide.link);
+        const sanitizedIdePrice = DOMPurify.sanitize(ide.price);
+        const sanitizedIdeLink = DOMPurify.sanitize(ide.link);
+        const idealoLink = document.createElement('a');
+        idealoLink.className = "aditem-main--middle--price-shipping--price";
+        idealoLink.href = sanitizedIdeLink;
+        idealoLink.target = "_blank";
+        idealoLink.style.marginLeft = "10px";
+        idealoLink.textContent = `IDEALO: ${sanitizedIdePrice} €`;
+        shipping_container.appendChild(idealoLink);
     }
-
-
 }
+
 
 for (let i = 0; i < items.length; i++) {
     processItem(items[i]);
 }
+
+
+
+try {
+// main Title
+var title = document.querySelector('.boxedarticle--title');
+var shipping_container = document.querySelector('.boxedarticle--flex--container');
+fill_in(title, shipping_container);
+
+} catch {
+
+}
+
+
